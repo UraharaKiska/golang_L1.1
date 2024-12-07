@@ -32,7 +32,6 @@ func (h *Human) GetSex() string {
 	return h.sex
 }
 
-
 func (h *Human) GetHeight() int {
 	return h.height
 }

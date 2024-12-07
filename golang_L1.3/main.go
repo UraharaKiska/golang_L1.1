@@ -24,7 +24,7 @@ func main() {
 	}
 	go func() {
 		for i := 0; i < workers; i++ {
-			<- done
+			<-done
 		}
 		close(sqrtChan)
 	}()
@@ -37,7 +37,7 @@ func main() {
 func CalcSqrt(wg *sync.WaitGroup, in chan int, out chan int, done chan int) {
 	defer wg.Done()
 	for n := range in {
-		out <- n*n
+		out <- n * n
 	}
 	done <- 0
 }
