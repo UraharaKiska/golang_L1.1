@@ -11,6 +11,10 @@ import (
 	"time"
 	"os"
 	"strconv"
+	"syscall"
+	"os/signal"
+
+	
 )
 
 func writer(cancel chan struct{}) chan int {
@@ -59,5 +63,8 @@ func main() {
 	for i := 0; i < workers; i++ {
 		reader(cancel, w)
 	}
-	<- cancel
+	sigchan := make(chan os.Signal, 1)
+	defer close(sigchan)
+	signal.Notify(sigchan, os.Interrupt, syscall.SIGTERM)
+	<-sigchan
 }
